@@ -10,6 +10,10 @@ class IndexPage extends React.Component {
     fetch("/.netlify/functions/token-hider")
       .then(response => response.json())
       .then(console.log)
+    
+    fetch("/.netlify/functions/get-spaces")
+      .then(response => response.json())
+      .then(console.log);
   }
 
   render() {
