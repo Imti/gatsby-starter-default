@@ -1,13 +1,21 @@
 const axios = require('axios');
 
 module.exports.handler = async function(event, context, callback) {
+  const { user } = context.clientContext;
+
   try {
+    const company = user.email.split('@')[1];
+
+    const companyToTeamId = {
+      'scopeinc.com': '2303362'
+    };
+
     const { CLICKUP_API_KEY = 'pk_4394648_9EBAP29G3RUJGZ4XFY7HYFFNHTYUHQ9G' } = process.env;
 
     const config = {
       headers: { "Authorization": CLICKUP_API_KEY }
     }
-    const teamId = '2303362';
+    const teamId = companyToTeamId[company];
     const url = `https://api.clickup.com/api/v2/team/${teamId}/space?archived=false`
     const { data } = await axios.get(url, config);
 
@@ -19,7 +27,7 @@ module.exports.handler = async function(event, context, callback) {
     };
   } catch (error) {
     return {
-      statusCode: error.response.status,
+      statusCode: 500,
       body: JSON.stringify({ error })
     }
   }

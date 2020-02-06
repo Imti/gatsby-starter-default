@@ -23,6 +23,7 @@ const NavBar = () => {
         <span>Navigate the app: </span>
         <Link to="/app/">Main</Link>
         <Link to="/app/profile">Profile</Link>
+        <Link to="/app/implementations">Implementations</Link>
         {isLoggedIn ? (<a href="/" onClick={handleClick}>Logout</a>) : (<Link to="/app/login">Login</Link>)}
       </nav>
     </div>

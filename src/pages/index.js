@@ -11,7 +11,7 @@ class IndexPage extends React.Component {
       .then(response => response.json())
       .then(console.log)
     
-    fetch("/./netlify/functions/get-spaces")
+    fetch("/.netlify/functions/get-spaces")
       .then(response => response.json())
       .then(console.log);
   }
