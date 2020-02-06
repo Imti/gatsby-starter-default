@@ -6,7 +6,7 @@ import { useIdentityContext } from "react-netlify-identity-widget"
 function Implementations() {
     const [isLoading, setIsLoading] = useState(true);
     const [implementations, setImplementations] = useState([]);
-    const { user } = useIdentityContext()
+    const { user } = useIdentityContext();
 
     useEffect(() => {
         fetch(`/.netlify/functions/get-spaces`, {

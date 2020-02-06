@@ -14,12 +14,12 @@ module.exports.handler = async function(event, context, callback) {
 
     const config = {
       headers: { "Authorization": CLICKUP_API_KEY }
-    }
+    };
     const teamId = companyToTeamId[company];
     const url = `https://api.clickup.com/api/v2/team/${teamId}/space?archived=false`
     const { data } = await axios.get(url, config);
 
-    console.log('data', data);
+    // console.log('get spaces data', data);
 
     return {
       statusCode: 200,
