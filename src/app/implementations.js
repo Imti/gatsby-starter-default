@@ -31,10 +31,10 @@ function Implementations() {
 
     return (
         <Container>
+            <br />
+            <h3>Dashboard</h3>
+            <br />
             { isLoading && <div>Loading Implementations...</div> }
-            <br />
-            <h3>Implementations</h3>
-            <br />
             <Row>
                 { implementations.map((implementation) => {
                     return (

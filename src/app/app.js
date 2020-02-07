@@ -9,7 +9,7 @@ const App = () => {
   return (
     <Layout>
       <Router>
-        <PrivateRoute path="/app/implementations" component={Implementations} />
+        <PrivateRoute path="/app/dashboard" component={Implementations} />
         <PublicRoute path="/app">
           <Login path="/login" />
         </PublicRoute>
