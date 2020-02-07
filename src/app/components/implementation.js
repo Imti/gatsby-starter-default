@@ -29,14 +29,15 @@ function Implementation(props) {
         <div>
             <div><b>{ name }</b></div>
             { isLoading && <div>Loading...</div> }
-            { lists.map((list) => {
-                return (
-                    <ul>
-                        <li>{ list.name }</li>
-                        <Milestone key={list.id} {...list} />
-                    </ul>
-                );
-            })}
+            { !!lists.length && <ul>
+                { lists.map((list) => {
+                    return (
+                        <li>
+                            <Milestone key={list.id} {...list} />
+                        </li>
+                    );
+                })}
+            </ul> }
         </div>
     );
 }

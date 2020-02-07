@@ -5,11 +5,10 @@ import { useIdentityContext } from "react-netlify-identity-widget"
 function Milestone(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [tasks, setTasks] = useState([]);
-    console.log('Milestone props', props);
 
     const { user } = useIdentityContext();
 
-    const { id } = props;
+    const { id, name } = props;
 
     useEffect(() => {
         fetch(`/.netlify/functions/get-tasks?list_id=${id}`, {
@@ -26,14 +25,30 @@ function Milestone(props) {
             });
     }, []);
 
+    // NOTE: get all the types of statuses
+    // figure out the difference between `closed`
+    // and `done` type
+
+    const getPercentageComplete = (tasks = []) => {
+        if (tasks.length === 0) return 0; // guard against 0/0 => NaN
+
+        const numCompletedTasks = tasks.filter(t => t.status.type === 'closed').length;
+        return (numCompletedTasks / tasks.length) * 100;
+    }
+
     return (
         <div>
             { isLoading && <div>Loading...</div> }
+            <div>
+                { name } -> { getPercentageComplete(tasks) }% complete
+            </div>
             { !!tasks.length && <ul>
                 { tasks.map((task) => {
                     return (
                         <li key={task.id}>
-                            { task.name }
+                            <span>{ task.name }</span>
+                            <span> -> </span>
+                            <span>{ task.status.status }</span>
                         </li>
                     );
                 })}

@@ -9,11 +9,11 @@ class IndexPage extends React.Component {
   componentDidMount() {
     fetch("/.netlify/functions/token-hider")
       .then(response => response.json())
-      .then(console.log)
+      // .then(console.log)
     
     fetch("/.netlify/functions/get-spaces")
       .then(response => response.json())
-      .then(console.log);
+      // .then(console.log);
   }
 
   render() {

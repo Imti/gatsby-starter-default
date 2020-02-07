@@ -19,11 +19,16 @@ module.exports.handler = async function(event, context, callback) {
     const url = `https://api.clickup.com/api/v2/team/${teamId}/space?archived=false`
     const { data } = await axios.get(url, config);
 
+    // filter out templates (they start with a left bracket -> [)
+    const filteredData = { 
+      spaces: data.spaces.filter(space => !space.name.startsWith('['))
+    };
+
     // console.log('get spaces data', data);
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify(filteredData),
     };
   } catch (error) {
     return {
