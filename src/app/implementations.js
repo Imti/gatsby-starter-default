@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Implementation from './components/implementation';
 
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 import { useIdentityContext } from "react-netlify-identity-widget"
 
 function Implementations() {
@@ -23,18 +27,27 @@ function Implementations() {
             });
     }, []);
 
+    // TODO: style stuff better
+
     return (
-        <div>
-            <br/>
+        <Container>
             { isLoading && <div>Loading Implementations...</div> }
-            { implementations.map((implementation) => {
-                return (
-                    <Implementation
-                        key={implementation.id }
-                        {...implementation} />
-                );
-            })}
-        </div>
+            <br />
+            <h3>Implementations</h3>
+            <br />
+            <Row>
+                { implementations.map((implementation) => {
+                    return (
+                        <Col md={6} xs={12}>
+                            <Implementation
+                                key={implementation.id }
+                                {...implementation} />
+                            <br />
+                        </Col>
+                    );
+                })}
+            </Row>
+        </Container>
     );
 }
 

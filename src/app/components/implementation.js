@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Milestone from './milestone';
 
+import Card from 'react-bootstrap/Card';
+
 import { useIdentityContext } from "react-netlify-identity-widget"
 
 function Implementation(props) {
@@ -8,7 +10,7 @@ function Implementation(props) {
     const [lists, setLists] = useState([]);
     const { user } = useIdentityContext();
 
-    const { id, name, statuses, features } = props;
+    const { id, name } = props;
 
     useEffect(() => {
         fetch(`/.netlify/functions/get-lists?space_id=${id}`, {
@@ -26,19 +28,24 @@ function Implementation(props) {
     }, []);
 
     return (
-        <div>
-            <div><b>{ name }</b></div>
-            { isLoading && <div>Loading...</div> }
-            { !!lists.length && <ul>
-                { lists.map((list) => {
-                    return (
-                        <li>
-                            <Milestone key={list.id} {...list} />
-                        </li>
-                    );
-                })}
-            </ul> }
-        </div>
+        <Card>
+            <Card.Body>
+                <Card.Title>{ name }</Card.Title>
+                { isLoading && <div>Loading...</div> }
+                <Card.Text className="text-muted">
+                    { !!lists.length && <ol>
+                        { lists.map((list) => {
+                            return (
+                                <li>
+                                    <Milestone key={list.id} {...list} />
+                                </li>
+                            );
+                        })}
+                    </ol> }
+                </Card.Text>
+                <Card.Link className="float-right" href="http://google.com">See Progress →</Card.Link>
+            </Card.Body>
+        </Card>
     );
 }
 

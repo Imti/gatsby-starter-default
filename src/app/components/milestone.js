@@ -30,6 +30,7 @@ function Milestone(props) {
     // and `done` type
 
     const getPercentageComplete = (tasks = []) => {
+        if (isLoading) return 0;
         if (tasks.length === 0) return 0; // guard against 0/0 => NaN
 
         const numCompletedTasks = tasks.filter(t => t.status.type === 'closed').length;
@@ -40,21 +41,25 @@ function Milestone(props) {
         <div>
             { isLoading && <div>Loading...</div> }
             <div>
-                { name } -> { getPercentageComplete(tasks) }% complete
+                { name } { getPercentageComplete(tasks) }%
             </div>
-            { !!tasks.length && <ul>
-                { tasks.map((task) => {
-                    return (
-                        <li key={task.id}>
-                            <span>{ task.name }</span>
-                            <span> -> </span>
-                            <span>{ task.status.status }</span>
-                        </li>
-                    );
-                })}
-            </ul>}
         </div>
     );
 }
+
+// Useful for rendering tasks if we need it
+/*
+{ !!tasks.length && <ul>
+    { tasks.map((task) => {
+        return (
+            <li key={task.id}>
+                <span>{ task.name }</span>
+                <span> -> </span>
+                <span>{ task.status.status }</span>
+            </li>
+        );
+    })}
+</ul>}
+*/
 
 export default Milestone;
